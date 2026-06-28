@@ -73,7 +73,7 @@ def load_data():
         })
     return pd.DataFrame(summary)
 
-# Giao diện
+# Giao diện chính
 st.markdown("<h2 style='text-align: center; color: #f97316;'>📊 HỆ THỐNG ĐIỀU PHỐI GHN</h2>", unsafe_allow_html=True)
 df = load_data()
 
@@ -91,8 +91,9 @@ if df is not None:
         color = "#ef4444" if row["Trạng thái cảnh báo"] == "🚨 QUÁ TẢI" else ("#f59e0b" if row["Trạng thái cảnh báo"] == "⚠️ ÁP LỰC" else "#22c55e")
         return [f'background-color: rgba(255,255,255,0.05); color: {color}; font-weight: bold;'] * len(row)
         
-    # Sửa đoạn st.dataframe cũ của bạn thành dòng này:
-st.dataframe(df.style.apply(style_row, axis=1), use_container_width=True)
-    if st.button("🔄 Cập nhật/Làm mới dữ liệu tức thì"): st.rerun()
+    st.dataframe(df.style.apply(style_row, axis=1), use_container_width=True)
+    
+    if st.button("🔄 Cập nhật/Làm mới dữ liệu tức thì"):
+        st.rerun()
 else:
     st.error("❌ Không tìm thấy dữ liệu!")
