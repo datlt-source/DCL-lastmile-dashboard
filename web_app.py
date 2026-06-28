@@ -7,7 +7,7 @@ import re
 # Cấu hình trang
 st.set_page_config(page_title="GHN Lastmile Analytics", page_icon="📊", layout="wide")
 
-# CSS custom
+# CSS custom - ĐÃ TÍCH HỢP CSS ÉP BẢNG BUNG HẾT CỠ
 st.markdown("""
     <style>
     .kpi-card-container { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 25px; }
@@ -17,6 +17,10 @@ st.markdown("""
     .kpi-title { font-size: 14px; text-transform: uppercase; color: #94a3b8; font-weight: 600; }
     .kpi-value { font-size: 28px; font-weight: 700; margin-top: 5px; color: #f8fafc; }
     .section-header { background-color: #1e1b4b; color: #e0e7ff; padding: 10px 15px; border-radius: 6px; font-weight: bold; margin: 15px 0; font-size: 16px; }
+    
+    /* CSS ép bảng bung hết cỡ */
+    [data-testid="stDataFrame"] { height: auto !important; }
+    div[data-testid="stDataFrame"] div[data-testid="stVirtualStore"] { max-height: none !important; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -87,7 +91,7 @@ if df is not None:
         color = "#ef4444" if row["Trạng thái cảnh báo"] == "🚨 QUÁ TẢI" else ("#f59e0b" if row["Trạng thái cảnh báo"] == "⚠️ ÁP LỰC" else "#22c55e")
         return [f'background-color: rgba(255,255,255,0.05); color: {color}; font-weight: bold;'] * len(row)
         
-    # HIỂN THỊ BẢNG (KHÔNG CÓ THAM SỐ HEIGHT)
+    # HIỂN THỊ BẢNG BUNG HẾT CỠ (KHÔNG CÓ THAM SỐ HEIGHT)
     st.dataframe(df.style.apply(style_row, axis=1), use_container_width=True, hide_index=True)
     
     if st.button("🔄 Cập nhật/Làm mới dữ liệu tức thì"):
