@@ -1,0 +1,4 @@
+venv/
+.DS_Store
+bot_profile/
+user_data_session/

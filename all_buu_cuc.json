@@ -1,0 +1,740 @@
+[
+    {
+        "locationCode": "1083",
+        "locationId": 1083,
+        "locationName": "(DTH) Cao Lãnh",
+        "parentLocation": [
+            "REGION/F",
+            "PROVINCE/216",
+            "DISTRICT/1564",
+            "WARD/500104",
+            "SECTION/EXREG0101S"
+        ]
+    },
+    {
+        "locationCode": "1933",
+        "locationId": 1933,
+        "locationName": "(DTH) An Bình",
+        "parentLocation": [
+            "REGION/F",
+            "PROVINCE/216",
+            "DISTRICT/2059",
+            "WARD/501204",
+            "SECTION/EXREG0101S"
+        ]
+    },
+    {
+        "locationCode": "1934",
+        "locationId": 1934,
+        "locationName": "(BTR) Mỏ Cày",
+        "parentLocation": [
+            "REGION/F",
+            "PROVINCE/213",
+            "DISTRICT/1975",
+            "WARD/560901",
+            "SECTION/EXREG0098S"
+        ]
+    },
+    {
+        "locationCode": "1199",
+        "locationId": 1199,
+        "locationName": "(TGI) Đạo Thạnh",
+        "parentLocation": [
+            "REGION/F",
+            "PROVINCE/212",
+            "DISTRICT/1556",
+            "WARD/530106",
+            "SECTION/EXREG0099S"
+        ]
+    },
+    {
+        "locationCode": "2410",
+        "locationId": 2410,
+        "locationName": "(TVI) Duyên Hải",
+        "parentLocation": [
+            "REGION/F",
+            "PROVINCE/214",
+            "DISTRICT/3443",
+            "WARD/580907",
+            "SECTION/EXREG0105S"
+        ]
+    },
+    {
+        "locationCode": "2498",
+        "locationId": 2498,
+        "locationName": "(DTH) Tràm Chim",
+        "parentLocation": [
+            "REGION/F",
+            "PROVINCE/216",
+            "DISTRICT/2011",
+            "WARD/500501",
+            "SECTION/EXREG0101S"
+        ]
+    },
+    {
+        "locationCode": "20139000",
+        "locationId": 20139000,
+        "locationName": "(DTH) Thanh Bình",
+        "parentLocation": [
+            "REGION/F",
+            "PROVINCE/216",
+            "DISTRICT/2026",
+            "WARD/500601"
+        ]
+    },
+    {
+        "locationCode": "20153000",
+        "locationId": 20153000,
+        "locationName": "(BTR) Giồng Trôm",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1937",
+            "WARD/560501",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20227000",
+        "locationId": 20227000,
+        "locationName": "(TGI) Tân Phước 1",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/3275",
+            "WARD/530901",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20349000",
+        "locationId": 20349000,
+        "locationName": "(TGI) Đồng Sơn",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/1933",
+            "WARD/530702",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20478000",
+        "locationId": 20478000,
+        "locationName": "(VLO) Trà Ôn",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/2034",
+            "WARD/570601",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20731000",
+        "locationId": 20731000,
+        "locationName": "(VLO) Tân Quới",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/2081",
+            "WARD/570807",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20748000",
+        "locationId": 20748000,
+        "locationName": "(TVI) Cầu Kè",
+        "parentLocation": [
+            "PROVINCE/214",
+            "DISTRICT/2091",
+            "WARD/580301",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20776000",
+        "locationId": 20776000,
+        "locationName": "(TGI) Hậu Mỹ",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/1900",
+            "WARD/530307",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20795000",
+        "locationId": 20795000,
+        "locationName": "(TGI) Mỹ Phong",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/1556",
+            "WARD/530110",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20798000",
+        "locationId": 20798000,
+        "locationName": "(TGI) Cái Bè",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/1900",
+            "WARD/530313",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20861000",
+        "locationId": 20861000,
+        "locationName": "(DTH) Tân Hồng",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/2013",
+            "WARD/500301",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20875000",
+        "locationId": 20875000,
+        "locationName": "(VLO) Tam Bình",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/2008",
+            "WARD/570501",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20880000",
+        "locationId": 20880000,
+        "locationName": "(VLO) Cái Nhum",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/2164",
+            "WARD/570301",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "20908000",
+        "locationId": 20908000,
+        "locationName": "(VLO) Long Châu",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/1562",
+            "WARD/570107",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21313000",
+        "locationId": 21313000,
+        "locationName": "(TGI) Long Tiên",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/2084",
+            "WARD/530406",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21374000",
+        "locationId": 21374000,
+        "locationName": "(VLO) Cái Vồn",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/2054",
+            "WARD/570401",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21497000",
+        "locationId": 21497000,
+        "locationName": "(TVI) Trà Cú",
+        "parentLocation": [
+            "PROVINCE/214",
+            "DISTRICT/2033",
+            "WARD/580611",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21528000",
+        "locationId": 21528000,
+        "locationName": "(TGI) Vĩnh Kim",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/1740",
+            "WARD/530523",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21559000",
+        "locationId": 21559000,
+        "locationName": "(TGI) Thanh Hòa",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/2055",
+            "WARD/531102",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21563000",
+        "locationId": 21563000,
+        "locationName": "(TVI) Tiểu Cần",
+        "parentLocation": [
+            "PROVINCE/214",
+            "DISTRICT/2020",
+            "WARD/580408",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21582000",
+        "locationId": 21582000,
+        "locationName": "(BTR) Thạnh Phú",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/2028",
+            "WARD/560807",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21583000",
+        "locationId": 21583000,
+        "locationName": "(BTR) Bình Đại",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1895",
+            "WARD/560603",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21620000",
+        "locationId": 21620000,
+        "locationName": "(TVI) Trà Vinh",
+        "parentLocation": [
+            "PROVINCE/214",
+            "DISTRICT/1560",
+            "WARD/580109",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21665000",
+        "locationId": 21665000,
+        "locationName": "(VLO) Phú Quới",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/1962",
+            "WARD/570207",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21991000",
+        "locationId": 21991000,
+        "locationName": "(TGI) Châu Thành",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/1740",
+            "WARD/530521",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21992000",
+        "locationId": 21992000,
+        "locationName": "(TGI) Thạnh Phú",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/2084",
+            "WARD/530412",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "21998000",
+        "locationId": 21998000,
+        "locationName": "(BTR) Tiên Thủy",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1742",
+            "WARD/560221",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "22000000",
+        "locationId": 22000000,
+        "locationName": "(DTH) Tân Nhuận Đông",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/3155",
+            "WARD/501110",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "22003000",
+        "locationId": 22003000,
+        "locationName": "(BTR) Ba Tri",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1888",
+            "WARD/560701",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "22031000",
+        "locationId": 22031000,
+        "locationName": "(BTR) An Hội",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1558",
+            "WARD/560116",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "22080000",
+        "locationId": 22080000,
+        "locationName": "(DTH) Mỹ Thọ",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1724",
+            "WARD/500701",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "22101000",
+        "locationId": 22101000,
+        "locationName": "(BTR) Phú Túc",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1742",
+            "WARD/56021",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "22270000",
+        "locationId": 22270000,
+        "locationName": "(TGI) Long Thuận",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/2057",
+            "WARD/530203",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "22316000",
+        "locationId": 22316000,
+        "locationName": "(TGI) Chợ Gạo",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/1741",
+            "WARD/530609",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "22337000",
+        "locationId": 22337000,
+        "locationName": "(BTR) Phước Mỹ Trung",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1974",
+            "WARD/560406",
+            "REGION/F"
+        ]
+    },
+    {
+        "locationCode": "22372000",
+        "locationId": 22372000,
+        "locationName": "(DTH) Hòa Long",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1725",
+            "WARD/501003"
+        ]
+    },
+    {
+        "locationCode": "22387000",
+        "locationId": 22387000,
+        "locationName": "(VLO) Phước Hậu",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/1562",
+            "WARD/570103"
+        ]
+    },
+    {
+        "locationCode": "22461000",
+        "locationId": 22461000,
+        "locationName": "(DTH) Tháp Mười",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/2030",
+            "WARD/500901"
+        ]
+    },
+    {
+        "locationCode": "22479000",
+        "locationId": 22479000,
+        "locationName": "(TVI) Cầu Ngang",
+        "parentLocation": [
+            "PROVINCE/214",
+            "DISTRICT/1908",
+            "WARD/580701"
+        ]
+    },
+    {
+        "locationCode": "22521000",
+        "locationId": 22521000,
+        "locationName": "(TVI) Châu Thành",
+        "parentLocation": [
+            "PROVINCE/214",
+            "DISTRICT/1911",
+            "WARD/58051"
+        ]
+    },
+    {
+        "locationCode": "22522000",
+        "locationId": 22522000,
+        "locationName": "(TVI) Càng Long",
+        "parentLocation": [
+            "PROVINCE/214",
+            "DISTRICT/2086",
+            "WARD/580201"
+        ]
+    },
+    {
+        "locationCode": "22000001",
+        "locationId": 22000001,
+        "locationName": "(DTH) ĐL Tân Phú Trung",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/3155",
+            "WARD/50119"
+        ]
+    },
+    {
+        "locationCode": "22789000",
+        "locationId": 22789000,
+        "locationName": "(DTH) Lấp Vò",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1961",
+            "WARD/500803"
+        ]
+    },
+    {
+        "locationCode": "22797000",
+        "locationId": 22797000,
+        "locationName": "(DTH) Mỹ An Hưng",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1961",
+            "WARD/500812"
+        ]
+    },
+    {
+        "locationCode": "22372001",
+        "locationId": 22372001,
+        "locationName": "(DTH) ĐL Tân Khánh Trung",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1961",
+            "WARD/500808"
+        ]
+    },
+    {
+        "locationCode": "22812000",
+        "locationId": 22812000,
+        "locationName": "(DTH) Ba Sao",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1724",
+            "WARD/500716"
+        ]
+    },
+    {
+        "locationCode": "22867000",
+        "locationId": 22867000,
+        "locationName": "(TGI) Gia Thuận",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/1932",
+            "WARD/530806"
+        ]
+    },
+    {
+        "locationCode": "22868000",
+        "locationId": 22868000,
+        "locationName": "(BTR) Lộc Thuận",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1895",
+            "WARD/560619"
+        ]
+    },
+    {
+        "locationCode": "22869000",
+        "locationId": 22869000,
+        "locationName": "(TGI) Mỹ Lợi",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/1900",
+            "WARD/530318"
+        ]
+    },
+    {
+        "locationCode": "22876000",
+        "locationId": 22876000,
+        "locationName": "(BTR) Hưng Khánh Trung",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/3158",
+            "WARD/560303"
+        ]
+    },
+    {
+        "locationCode": "22877000",
+        "locationId": 22877000,
+        "locationName": "(DTH) Lai Vung",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1725",
+            "WARD/501011"
+        ]
+    },
+    {
+        "locationCode": "22910000",
+        "locationId": 22910000,
+        "locationName": "(BTR) Hương Mỹ",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1975",
+            "WARD/560910"
+        ]
+    },
+    {
+        "locationCode": "22916000",
+        "locationId": 22916000,
+        "locationName": "(VLO) Trung Thành",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/2263",
+            "WARD/570715"
+        ]
+    },
+    {
+        "locationCode": "22920000",
+        "locationId": 22920000,
+        "locationName": "(DTH) Sa Đéc",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1668",
+            "WARD/500205"
+        ]
+    },
+    {
+        "locationCode": "22337001",
+        "locationId": 22337001,
+        "locationName": "(BTR) ĐL Nhuận Phú Tân",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1974",
+            "WARD/560403"
+        ]
+    },
+    {
+        "locationCode": "22920001",
+        "locationId": 22920001,
+        "locationName": "(DTH) ĐL Sa Đéc",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1668",
+            "WARD/500207"
+        ]
+    },
+    {
+        "locationCode": "22972000",
+        "locationId": 22972000,
+        "locationName": "(BTR) Sơn Đông",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/1558",
+            "WARD/560110"
+        ]
+    },
+    {
+        "locationCode": "22980000",
+        "locationId": 22980000,
+        "locationName": "(VLO) Long Hồ",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/1962",
+            "WARD/570201"
+        ]
+    },
+    {
+        "locationCode": "23030000",
+        "locationId": 23030000,
+        "locationName": "(BTR) Phú Phụng",
+        "parentLocation": [
+            "PROVINCE/213",
+            "DISTRICT/3158",
+            "WARD/560307"
+        ]
+    },
+    {
+        "locationCode": "22789001",
+        "locationId": 22789001,
+        "locationName": "(DTH) ĐL Lấp Vò",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1961",
+            "WARD/500801",
+            "REGION/H"
+        ]
+    },
+    {
+        "locationCode": "23056000",
+        "locationId": 23056000,
+        "locationName": "(DTH) Mỹ Hiệp",
+        "parentLocation": [
+            "PROVINCE/216",
+            "DISTRICT/1724",
+            "WARD/500710"
+        ]
+    },
+    {
+        "locationCode": "23057000",
+        "locationId": 23057000,
+        "locationName": "(VLO) Vĩnh Xuân",
+        "parentLocation": [
+            "PROVINCE/215",
+            "DISTRICT/2034",
+            "WARD/570613"
+        ]
+    },
+    {
+        "locationCode": "23072000",
+        "locationId": 23072000,
+        "locationName": "(TGI) Long Định",
+        "parentLocation": [
+            "PROVINCE/212",
+            "DISTRICT/1740",
+            "WARD/530511"
+        ]
+    }
+]
