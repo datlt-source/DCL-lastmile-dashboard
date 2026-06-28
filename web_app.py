@@ -3,39 +3,17 @@ import json
 import os
 import pandas as pd
 import re
-import streamlit.components.v1 as components
 
-# Cấu hình trang
+# Cấu hình trang - Phải đặt đầu tiên
 st.set_page_config(page_title="GHN Lastmile Analytics", page_icon="📊", layout="wide")
 
-# CSS để ẩn thanh cuộn không cần thiết
+# CSS - Chỉ dùng để tạo style, không can thiệp chiều cao bảng để tránh lỗi
 st.markdown("""
     <style>
-    .section-header { background-color: #1e1b4b; color: #e0e7ff; padding: 10px 15px; border-radius: 6px; font-weight: bold; margin: 15px 0; font-size: 16px; }
+    .kpi-card { background: #1e293b; color: #ffffff; padding: 20px; border-radius: 10px; text-align: center; }
+    .section-header { color: #f97316; font-size: 20px; font-weight: bold; margin-top: 20px; }
     </style>
 """, unsafe_allow_html=True)
-
-# SỬ DỤNG JAVASCRIPT ĐỂ GỠ BỎ CHIỀU CAO CỐ ĐỊNH CỦA BẢNG
-components.html(
-    """
-    <script>
-    function fixTableHeight() {
-        const tableContainers = window.parent.document.querySelectorAll('div[data-testid="stDataFrame"]');
-        tableContainers.forEach(container => {
-            container.style.height = 'auto';
-            container.style.maxHeight = 'none';
-        });
-        const virtualStores = window.parent.document.querySelectorAll('div[data-testid="stVirtualStore"]');
-        virtualStores.forEach(vs => {
-            vs.style.maxHeight = 'none';
-        });
-    }
-    // Chạy lại hàm này sau mỗi 1 giây để đảm bảo Streamlit không tự gán lại chiều cao
-    setInterval(fixTableHeight, 1000);
-    </script>
-    """,
-    height=0,
-)
 
 def clean_and_normalize(text):
     if not text: return ""
@@ -86,15 +64,22 @@ def load_data():
         })
     return pd.DataFrame(summary)
 
+# Main layout
+st.title("📊 HỆ THỐNG ĐIỀU PHỐI GHN")
 df = load_data()
+
 if df is not None:
+    # KPI section
+    cols = st.columns(4)
+    cols[0].metric("Tổng Bưu Cục", len(df))
+    cols[1].metric("Tồn Đọng", f"{df['Tồn đọng (Kho)'].sum():,}")
+    cols[2].metric("Chuyến Xe", df['Số chuyến đi'].sum())
+    cols[3].metric("Tổng Sản Lượng", f"{df['Sản lượng (Xe)'].sum():,}")
+
     st.markdown("<div class='section-header'>📋 CHI TIẾT ĐIỀU PHỐI BƯU CỤC</div>", unsafe_allow_html=True)
     
-    def style_row(row):
-        color = "#ef4444" if row["Trạng thái cảnh báo"] == "🚨 QUÁ TẢI" else ("#f59e0b" if row["Trạng thái cảnh báo"] == "⚠️ ÁP LỰC" else "#22c55e")
-        return [f'color: {color}; font-weight: bold;'] * len(row)
-        
-    st.dataframe(df.style.apply(style_row, axis=1), use_container_width=True, hide_index=True)
+    # Bảng dữ liệu chuẩn (không truyền tham số height để tránh lỗi)
+    st.dataframe(df, use_container_width=True, hide_index=True)
     
     if st.button("🔄 Cập nhật dữ liệu"):
         st.rerun()
