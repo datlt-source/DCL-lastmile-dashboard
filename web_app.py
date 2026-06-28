@@ -3,44 +3,37 @@ import json
 import os
 import pandas as pd
 import re
+from datetime import datetime
 
-# 1. Cấu hình trang hiển thị rộng
 st.set_page_config(page_title="GHN Lastmile Analytics", page_icon="📊", layout="wide")
 
-# 2. CSS Custom để xóa giới hạn container và làm đẹp UI
+# CSS cải tiến
 st.markdown("""
     <style>
-    /* Làm bảng bung rộng tối đa */
-    .stDataFrame { width: 100% !important; }
-    
-    /* Làm đẹp các thẻ chỉ số */
-    [data-testid="stMetricValue"] { font-size: 24px; color: #f97316; }
-    [data-testid="stMetricLabel"] { color: #94a3b8; }
-    
-    /* Tạo khoảng cách và bo góc cho các block */
-    div.block-container { padding-top: 2rem; }
+    .metric-card { background: #1e293b; padding: 15px; border-radius: 10px; border-left: 5px solid #f97316; }
+    .update-time { color: #94a3b8; font-style: italic; font-size: 0.9em; }
     </style>
 """, unsafe_allow_html=True)
-
-# Các hàm logic dữ liệu của bạn
-def clean_and_normalize(text):
-    if not text: return ""
-    return str(text).strip().lower().replace("(", "").replace(")", "").replace("-", "")
 
 def load_data():
     if not os.path.exists("final_backlog_data.json") or not os.path.exists("all_region_trips.json"):
         return None
-    # ... (Giữ nguyên logic load_data của bạn) ...
+    
+    # Lấy thời gian sửa file mới nhất làm mốc cập nhật
+    mtime = os.path.getmtime("final_backlog_data.json")
+    update_time = datetime.fromtimestamp(mtime).strftime('%d/%m/%Y %H:%M:%S')
+    
     with open("final_backlog_data.json", "r", encoding="utf-8") as f:
         backlog_data = json.load(f)
     with open("all_region_trips.json", "r", encoding="utf-8") as f:
         trips_list = json.load(f)
 
+    # ... [Giữ nguyên logic xử lý dữ liệu như cũ] ...
     trip_counts, trip_productions = {}, {}
     for trip in trips_list:
         h_name = trip.get("hub_name") or trip.get("locationName") or ""
         if h_name:
-            clean_trip_hub = clean_and_normalize(h_name)
+            clean_trip_hub = h_name.strip().lower()
             trip_counts[clean_trip_hub] = trip_counts.get(clean_trip_hub, 0) + 1
             prod = trip.get("delivery_return_sum", 0)
             if prod == 0 and "total_statistics" in trip:
@@ -49,50 +42,41 @@ def load_data():
             trip_productions[clean_trip_hub] = trip_productions.get(clean_trip_hub, 0) + prod
 
     summary = []
-    for trip_hub_key, count in trip_counts.items():
-        total_trips = count
-        total_trip_production = trip_productions.get(trip_hub_key, 0)
-        total_backlog = 0
-        original_hub_name = trip_hub_key.upper()
-        for backlog_hub, backlog_info in backlog_data.items():
-            clean_backlog_hub = clean_and_normalize(backlog_hub)
-            if clean_backlog_hub in trip_hub_key or trip_hub_key in clean_backlog_hub:
-                total_backlog = backlog_info.get("total_sum", 0) if isinstance(backlog_info, dict) else 0
-                original_hub_name = backlog_hub
+    for hub, count in trip_counts.items():
+        prod = trip_productions.get(hub, 0)
+        backlog = 0
+        for b_hub, b_info in backlog_data.items():
+            if b_hub.lower() in hub or hub in b_hub.lower():
+                backlog = b_info.get("total_sum", 0)
                 break
-        avg_prod_per_trip = int(round(total_trip_production / total_trips, 0)) if total_trips > 0 else 0
-        backlog_ratio = (total_backlog / total_trip_production) if total_trip_production > 0 else 0
-        alert_status = "🚨 QUÁ TẢI" if backlog_ratio >= 0.50 else ("⚠️ ÁP LỰC" if backlog_ratio >= 0.30 else "✅ AN TOÀN")
+        
+        # LOGIC CẢNH BÁO
+        ratio = (backlog / prod) if prod > 0 else 0
+        if ratio >= 0.50: status = "🚨 QUÁ TẢI"
+        elif ratio >= 0.30: status = "⚠️ ÁP LỰC"
+        else: status = "✅ AN TOÀN"
+            
         summary.append({
-            "Bưu cục": original_hub_name,
-            "Tồn đọng (Kho)": total_backlog,
-            "Số chuyến đi": total_trips,
-            "Sản lượng (Xe)": total_trip_production,
-            "Sản lượng/Chuyến": avg_prod_per_trip,
-            "Trạng thái cảnh báo": alert_status
+            "Bưu cục": hub.upper(), "Tồn đọng": backlog, "Sản lượng": prod,
+            "Trạng thái": status, "Tỉ lệ (%)": round(ratio * 100, 1)
         })
-    return pd.DataFrame(summary)
+    return pd.DataFrame(summary), update_time
 
-# 3. Giao diện người dùng cải tiến
+# Giao diện
 st.title("📊 GHN Lastmile Dashboard")
-
-df = load_data()
+df, last_update = load_data()
 
 if df is not None:
-    # Sử dụng st.columns để hiển thị KPI gọn gàng
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Tổng Bưu Cục", len(df))
-    c2.metric("Tổng Tồn Đọng", f"{df['Tồn đọng (Kho)'].sum():,}")
-    c3.metric("Tổng Chuyến Xe", df['Số chuyến đi'].sum())
-    c4.metric("Tổng Sản Lượng", f"{df['Sản lượng (Xe)'].sum():,}")
-
-    st.markdown("---")
-    st.subheader("📋 Chi tiết điều phối bưu cục")
+    st.markdown(f"<p class='update-time'>🕒 Dữ liệu cập nhật gần nhất: {last_update}</p>", unsafe_allow_html=True)
     
-    # Hiển thị bảng toàn màn hình bằng use_container_width
+    # Giải thích logic
+    with st.expander("ℹ️ Logic xác định trạng thái cảnh báo"):
+        st.write("""
+        Hệ thống xác định trạng thái dựa trên **Tỉ lệ tồn đọng** (Tồn đọng / Sản lượng xe):
+        - **🚨 QUÁ TẢI**: Tỉ lệ tồn đọng >= **50%**. Bưu cục đang bị ùn ứ đơn hàng nghiêm trọng.
+        - **⚠️ ÁP LỰC**: Tỉ lệ tồn đọng từ **30% đến dưới 50%**. Bưu cục cần theo dõi kỹ để tránh quá tải.
+        - **✅ AN TOÀN**: Tỉ lệ tồn đọng < **30%**. Vận hành ổn định.
+        """)
+    
     st.dataframe(df, use_container_width=True, hide_index=True)
-    
-    if st.button("🔄 Làm mới dữ liệu"):
-        st.rerun()
-else:
-    st.error("Không có dữ liệu để hiển thị.")
+    if st.button("🔄 Làm mới"): st.rerun()
