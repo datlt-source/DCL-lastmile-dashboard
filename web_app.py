@@ -5,14 +5,15 @@ import pandas as pd
 import re
 from datetime import datetime
 
-# Cấu hình trang rộng nhất có thể
+# Cấu hình trang
 st.set_page_config(page_title="GHN Lastmile Analytics", page_icon="📊", layout="wide")
 
-# CSS tối ưu hiển thị: ép bảng chiếm tối đa không gian và căn chỉnh lại thẻ KPI
+# CSS cải tiến để giao diện sáng sủa và chuyên nghiệp
 st.markdown("""
     <style>
     [data-testid="stMetricValue"] { font-size: 24px; color: #f97316; }
-    .update-time { color: #94a3b8; font-style: italic; margin-bottom: 10px; }
+    .update-time { color: #94a3b8; font-style: italic; margin-bottom: 20px; }
+    .logic-box { background-color: #1e293b; padding: 15px; border-radius: 10px; border-left: 5px solid #38bdf8; margin-bottom: 20px; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -64,12 +65,12 @@ def load_data():
         })
     return pd.DataFrame(summary), update_time
 
-# Giao diện
+# --- GIAO DIỆN CHÍNH ---
 st.title("📊 GHN Lastmile Dashboard")
 df, last_update = load_data()
 
 if df is not None:
-    # 1. Hiển thị thời gian cập nhật
+    # 1. Thời gian cập nhật
     st.markdown(f"<p class='update-time'>🕒 Dữ liệu cập nhật gần nhất: {last_update}</p>", unsafe_allow_html=True)
     
     # 2. Overall Dashboard (KPIs)
@@ -79,9 +80,18 @@ if df is not None:
     c3.metric("Tổng Chuyến Xe", df['Số chuyến đi'].sum())
     c4.metric("Tổng Sản Lượng", f"{df['Sản lượng (Xe)'].sum():,}")
 
-    st.markdown("---")
-    
-    # 3. Bảng dữ liệu chi tiết
+    # 3. Logic hiển thị ngay bên dưới KPI (để mọi người dễ nhìn)
+    st.markdown("### ℹ️ Logic xác định trạng thái cảnh báo")
+    st.markdown("""
+    <div class='logic-box'>
+    Trạng thái được tự động tính toán dựa trên <b>Tỉ lệ tồn đọng</b> (Tồn đọng / Sản lượng xe):
+    <br>• <b>🚨 QUÁ TẢI</b>: Tỉ lệ ≥ 50%
+    <br>• <b>⚠️ ÁP LỰC</b>: 30% ≤ Tỉ lệ < 50%
+    <br>• <b>✅ AN TOÀN</b>: Tỉ lệ < 30%
+    </div>
+    """, unsafe_allow_html=True)
+
+    # 4. Bảng chi tiết
     st.subheader("📋 Chi tiết điều phối bưu cục")
     st.dataframe(df, use_container_width=True, hide_index=True)
     
