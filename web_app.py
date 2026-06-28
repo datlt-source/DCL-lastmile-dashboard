@@ -3,26 +3,32 @@ import json
 import os
 import pandas as pd
 import re
+import streamlit.components.v1 as components
 
 # Cấu hình trang
 st.set_page_config(page_title="GHN Lastmile Analytics", page_icon="📊", layout="wide")
 
-# CSS custom - ĐÃ TÍCH HỢP CSS ÉP BẢNG BUNG HẾT CỠ
+# CSS và JS để ép bảng bung hết cỡ
 st.markdown("""
     <style>
-    .kpi-card-container { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 25px; }
-    .kpi-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #ffffff; padding: 20px; border-radius: 12px; flex: 1; text-align: center; border-left: 5px solid #38bdf8; }
-    .kpi-card.backlog { border-left-color: #ef4444; }
-    .kpi-card.trips { border-left-color: #22c55e; }
-    .kpi-title { font-size: 14px; text-transform: uppercase; color: #94a3b8; font-weight: 600; }
-    .kpi-value { font-size: 28px; font-weight: 700; margin-top: 5px; color: #f8fafc; }
     .section-header { background-color: #1e1b4b; color: #e0e7ff; padding: 10px 15px; border-radius: 6px; font-weight: bold; margin: 15px 0; font-size: 16px; }
-    
-    /* CSS ép bảng bung hết cỡ */
-    [data-testid="stDataFrame"] { height: auto !important; }
-    div[data-testid="stDataFrame"] div[data-testid="stVirtualStore"] { max-height: none !important; }
     </style>
 """, unsafe_allow_html=True)
+
+# JavaScript để xóa giới hạn chiều cao của khung bảng
+components.html(
+    """
+    <script>
+    const style = document.createElement('style');
+    style.innerHTML = `
+        div[data-testid="stDataFrame"] { height: auto !important; }
+        div[data-testid="stVirtualStore"] { max-height: none !important; }
+    `;
+    window.parent.document.head.appendChild(style);
+    </script>
+    """,
+    height=0,
+)
 
 def clean_and_normalize(text):
     if not text: return ""
@@ -73,28 +79,17 @@ def load_data():
         })
     return pd.DataFrame(summary)
 
-# Giao diện chính
-st.markdown("<h2 style='text-align: center; color: #f97316;'>📊 HỆ THỐNG ĐIỀU PHỐI GHN</h2>", unsafe_allow_html=True)
 df = load_data()
-
 if df is not None:
-    st.markdown("<div class='section-header'>📌 TỔNG QUAN VẬN HÀNH</div>", unsafe_allow_html=True)
-    cols = st.columns(4)
-    cols[0].markdown(f"<div class='kpi-card'><div class='kpi-title'>🏢 Tổng Bưu Cục</div><div class='kpi-value'>{len(df)}</div></div>", unsafe_allow_html=True)
-    cols[1].markdown(f"<div class='kpi-card backlog'><div class='kpi-title'>📦 Tồn Đọng</div><div class='kpi-value'>{df['Tồn đọng (Kho)'].sum():,}</div></div>", unsafe_allow_html=True)
-    cols[2].markdown(f"<div class='kpi-card trips'><div class='kpi-title'>🚚 Chuyến Xe</div><div class='kpi-value'>{df['Số chuyến đi'].sum()}</div></div>", unsafe_allow_html=True)
-    cols[3].markdown(f"<div class='kpi-card'><div class='kpi-title'>✨ Tổng Sản Lượng</div><div class='kpi-value'>{df['Sản lượng (Xe)'].sum():,}</div></div>", unsafe_allow_html=True)
-
-    st.markdown("<div class='section-header'>📋 CHI TIẾT ĐIỀU PHỐI</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-header'>📋 CHI TIẾT ĐIỀU PHỐI BƯU CỤC</div>", unsafe_allow_html=True)
     
     def style_row(row):
         color = "#ef4444" if row["Trạng thái cảnh báo"] == "🚨 QUÁ TẢI" else ("#f59e0b" if row["Trạng thái cảnh báo"] == "⚠️ ÁP LỰC" else "#22c55e")
-        return [f'background-color: rgba(255,255,255,0.05); color: {color}; font-weight: bold;'] * len(row)
+        return [f'color: {color}; font-weight: bold;'] * len(row)
         
-    # HIỂN THỊ BẢNG BUNG HẾT CỠ (KHÔNG CÓ THAM SỐ HEIGHT)
     st.dataframe(df.style.apply(style_row, axis=1), use_container_width=True, hide_index=True)
     
-    if st.button("🔄 Cập nhật/Làm mới dữ liệu tức thì"):
+    if st.button("🔄 Cập nhật dữ liệu"):
         st.rerun()
 else:
-    st.error("❌ Không tìm thấy dữ liệu!")
+    st.error("❌ Dữ liệu không sẵn sàng!")
