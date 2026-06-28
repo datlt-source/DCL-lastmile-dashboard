@@ -91,7 +91,8 @@ if df is not None:
         color = "#ef4444" if row["Trạng thái cảnh báo"] == "🚨 QUÁ TẢI" else ("#f59e0b" if row["Trạng thái cảnh báo"] == "⚠️ ÁP LỰC" else "#22c55e")
         return [f'background-color: rgba(255,255,255,0.05); color: {color}; font-weight: bold;'] * len(row)
         
-    st.dataframe(df.style.apply(style_row, axis=1), use_container_width=True, height=None)
+    # Sửa đoạn st.dataframe cũ của bạn thành dòng này:
+st.dataframe(df.style.apply(style_row, axis=1), use_container_width=True)
     if st.button("🔄 Cập nhật/Làm mới dữ liệu tức thì"): st.rerun()
 else:
     st.error("❌ Không tìm thấy dữ liệu!")
