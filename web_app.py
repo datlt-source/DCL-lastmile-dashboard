@@ -8,23 +8,30 @@ import streamlit.components.v1 as components
 # Cấu hình trang
 st.set_page_config(page_title="GHN Lastmile Analytics", page_icon="📊", layout="wide")
 
-# CSS và JS để ép bảng bung hết cỡ
+# CSS để ẩn thanh cuộn không cần thiết
 st.markdown("""
     <style>
     .section-header { background-color: #1e1b4b; color: #e0e7ff; padding: 10px 15px; border-radius: 6px; font-weight: bold; margin: 15px 0; font-size: 16px; }
     </style>
 """, unsafe_allow_html=True)
 
-# JavaScript để xóa giới hạn chiều cao của khung bảng
+# SỬ DỤNG JAVASCRIPT ĐỂ GỠ BỎ CHIỀU CAO CỐ ĐỊNH CỦA BẢNG
 components.html(
     """
     <script>
-    const style = document.createElement('style');
-    style.innerHTML = `
-        div[data-testid="stDataFrame"] { height: auto !important; }
-        div[data-testid="stVirtualStore"] { max-height: none !important; }
-    `;
-    window.parent.document.head.appendChild(style);
+    function fixTableHeight() {
+        const tableContainers = window.parent.document.querySelectorAll('div[data-testid="stDataFrame"]');
+        tableContainers.forEach(container => {
+            container.style.height = 'auto';
+            container.style.maxHeight = 'none';
+        });
+        const virtualStores = window.parent.document.querySelectorAll('div[data-testid="stVirtualStore"]');
+        virtualStores.forEach(vs => {
+            vs.style.maxHeight = 'none';
+        });
+    }
+    // Chạy lại hàm này sau mỗi 1 giây để đảm bảo Streamlit không tự gán lại chiều cao
+    setInterval(fixTableHeight, 1000);
     </script>
     """,
     height=0,
