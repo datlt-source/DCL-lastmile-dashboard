@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import os
 import pandas as pd
+import re
 
 # 1. Cấu hình trang hiển thị rộng rãi, chuyên nghiệp
 st.set_page_config(page_title="GHN Lastmile Analytics", page_icon="📊", layout="wide")
@@ -65,6 +66,7 @@ def load_data():
     trip_counts = {}
     trip_productions = {} 
     
+    # Gom nhóm và tính toán dữ liệu từ file chuyến đi trước
     for trip in trips_list:
         h_name = trip.get("hub_name") or trip.get("locationName") or ""
         if h_name:
@@ -73,7 +75,6 @@ def load_data():
             
             prod = trip.get("delivery_return_sum", 0)
             if prod == 0 and "total_statistics" in trip:
-                import re
                 match = re.search(r'(\d+)-(\d+)-(\d+)', str(trip["total_statistics"]))
                 if match:
                     try: prod = int(match.group(2)) + int(match.group(3))
@@ -81,18 +82,23 @@ def load_data():
             trip_productions[clean_trip_hub] = trip_productions.get(clean_trip_hub, 0) + prod
 
     summary = []
-    for hub_name, backlog_info in backlog_data.items():
-        total_backlog = backlog_info.get("total_sum", 0) if isinstance(backlog_info, dict) else 0
-        clean_target_hub = clean_and_normalize(hub_name)
-        total_trips = 0
-        total_trip_production = 0 
+    
+    # Vòng lặp quét gốc theo toàn bộ bưu cục tìm thấy từ file Chuyến đi
+    for trip_hub_key, count in trip_counts.items():
+        total_trips = count
+        total_trip_production = trip_productions.get(trip_hub_key, 0)
         
-        for trip_hub_key, count in trip_counts.items():
-            if clean_target_hub in trip_hub_key or trip_hub_key in clean_target_hub:
-                total_trips = count
-                total_trip_production = trip_productions.get(trip_hub_key, 0)
+        total_backlog = 0
+        original_hub_name = trip_hub_key.upper()
+        
+        # Tìm xem bưu cục này có số liệu tồn đọng trong file backlog không
+        for backlog_hub, backlog_info in backlog_data.items():
+            clean_backlog_hub = clean_and_normalize(backlog_hub)
+            if clean_backlog_hub in trip_hub_key or trip_hub_key in clean_backlog_hub:
+                total_backlog = backlog_info.get("total_sum", 0) if isinstance(backlog_info, dict) else 0
+                original_hub_name = backlog_hub
                 break
-        
+                
         avg_prod_per_trip = round(total_trip_production / total_trips, 1) if total_trips > 0 else 0
         backlog_ratio = (total_backlog / total_trip_production) if total_trip_production > 0 else 0
         
@@ -104,13 +110,14 @@ def load_data():
             alert_status = "✅ AN TOÀN"
             
         summary.append({
-            "Bưu cục": hub_name,
+            "Bưu cục": original_hub_name,
             "Tồn đọng (Kho)": total_backlog,
             "Số chuyến đi": total_trips,
             "Sản lượng (Xe)": total_trip_production,
             "Sản lượng/Chuyến": avg_prod_per_trip,
             "Trạng thái cảnh báo": alert_status
         })
+        
     return pd.DataFrame(summary)
 
 # --- THIẾT KẾ GIAO DIỆN CHÍNH ---
@@ -121,7 +128,7 @@ df = load_data()
 if df is None:
     st.error("❌ Không tìm thấy dữ liệu! Hãy chạy bot cào dữ liệu trước để sinh file json.")
 else:
-    # 1. Khu vực thẻ KPI mẫu mã đẹp (Phần Giao Thường / Tổng quan)
+    # 1. Khu vực thẻ KPI mẫu mã đẹp
     st.markdown("<div class='section-header'>📌 TỔNG QUAN VẬN HÀNH TRONG NGÀY</div>", unsafe_allow_html=True)
     
     total_hubs = len(df)
@@ -153,25 +160,19 @@ else:
     # 2. Khu vực Bảng dữ liệu chi tiết có định dạng màu sắc (Datatable)
     st.markdown("<div class='section-header'>📋 CHI TIẾT ĐIỀU PHỐI BƯU CỤC</div>", unsafe_allow_html=True)
     
-    # Hàm xử lý đổ màu highlight từng dòng dựa trên Trạng thái cảnh báo
     def style_dataframe(row):
         styles = [''] * len(row)
         status = row['Trạng thái cảnh báo']
         if status == "🚨 QUÁ TẢI":
-            # Đỏ nhạt cho dòng quá tải
             styles = ['background-color: rgba(239, 68, 68, 0.15); color: #ef4444; font-weight: 500;'] * len(row)
         elif status == "⚠️ ÁP LỰC":
-            # Vàng nhạt cho dòng áp lực
             styles = ['background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; font-weight: 500;'] * len(row)
         else:
-            # Xanh lá cho bưu cục an toàn
             styles = ['background-color: rgba(34, 197, 94, 0.15); color: #22c55e; font-weight: 500;'] * len(row)
         return styles
         
     styled_df = df.style.apply(style_dataframe, axis=1)
-    
-    # Render bảng tương tác độ rộng full màn hình
-    st.dataframe(styled_df, use_container_width=True, height=250)
+    st.dataframe(styled_df, use_container_width=True, height=450)
     
     # Nút bấm thủ công để reload nhanh dữ liệu
     if st.button("🔄 Cập nhật/Làm mới dữ liệu tức thì"):
