@@ -8,7 +8,7 @@ from datetime import datetime
 # Cấu hình trang
 st.set_page_config(page_title="GHN Lastmile Analytics", page_icon="📊", layout="wide")
 
-# CSS cải tiến để giao diện sáng sủa và chuyên nghiệp
+# CSS cải tiến
 st.markdown("""
     <style>
     [data-testid="stMetricValue"] { font-size: 24px; color: #f97316; }
@@ -50,48 +50,45 @@ def load_data():
                 backlog = b_info.get("total_sum", 0)
                 break
         
-        ratio = (backlog / prod * 100) if prod > 0 else 0
-        if ratio >= 50: status = "🚨 QUÁ TẢI"
-        elif ratio >= 30: status = "⚠️ ÁP LỰC"
-        else: status = "✅ AN TOÀN"
+        # LOGIC MỚI CỦA BẠN
+        ratio = (backlog / prod) if prod > 0 else 0
+        if ratio > 2.0: status = "🚨 QUÁ TẢI"
+        elif 1.6 <= ratio <= 2.0: status = "⚠️ CẢNH BÁO"
+        else: status = "✅ BÌNH THƯỜNG"
             
         summary.append({
             "Bưu cục": hub.upper(),
             "Tồn đọng (Kho)": backlog,
             "Số chuyến đi": count,
             "Sản lượng (Xe)": prod,
-            "Tỉ lệ (%)": round(ratio, 1),
+            "Tỉ lệ": round(ratio, 2),
             "Trạng thái": status
         })
     return pd.DataFrame(summary), update_time
 
-# --- GIAO DIỆN CHÍNH ---
+# Giao diện chính
 st.title("📊 GHN Lastmile Dashboard")
 df, last_update = load_data()
 
 if df is not None:
-    # 1. Thời gian cập nhật
     st.markdown(f"<p class='update-time'>🕒 Dữ liệu cập nhật gần nhất: {last_update}</p>", unsafe_allow_html=True)
     
-    # 2. Overall Dashboard (KPIs)
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Tổng Bưu Cục", len(df))
     c2.metric("Tổng Tồn Đọng", f"{df['Tồn đọng (Kho)'].sum():,}")
     c3.metric("Tổng Chuyến Xe", df['Số chuyến đi'].sum())
     c4.metric("Tổng Sản Lượng", f"{df['Sản lượng (Xe)'].sum():,}")
 
-    # 3. Logic hiển thị ngay bên dưới KPI (để mọi người dễ nhìn)
-    st.markdown("### ℹ️ Logic xác định trạng thái cảnh báo")
+    st.markdown("### ℹ️ Logic xác định trạng thái cảnh báo (Mới)")
     st.markdown("""
     <div class='logic-box'>
-    Trạng thái được tự động tính toán dựa trên <b>Tỉ lệ tồn đọng</b> (Tồn đọng / Sản lượng xe):
-    <br>• <b>🚨 QUÁ TẢI</b>: Tỉ lệ ≥ 50%
-    <br>• <b>⚠️ ÁP LỰC</b>: 30% ≤ Tỉ lệ < 50%
-    <br>• <b>✅ AN TOÀN</b>: Tỉ lệ < 30%
+    Trạng thái được tính dựa trên <b>Tỉ lệ</b> (Tồn đọng / Sản lượng xe):
+    <br>• <b>🚨 QUÁ TẢI</b>: Tỉ lệ > 2.0
+    <br>• <b>⚠️ CẢNH BÁO</b>: 1.6 ≤ Tỉ lệ ≤ 2.0
+    <br>• <b>✅ BÌNH THƯỜNG</b>: Tỉ lệ < 1.6
     </div>
     """, unsafe_allow_html=True)
 
-    # 4. Bảng chi tiết
     st.subheader("📋 Chi tiết điều phối bưu cục")
     st.dataframe(df, use_container_width=True, hide_index=True)
     
