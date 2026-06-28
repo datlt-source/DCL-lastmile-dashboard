@@ -27,7 +27,6 @@ def clean_and_normalize(text):
 def load_data():
     if not os.path.exists("final_backlog_data.json") or not os.path.exists("all_region_trips.json"):
         return None
-
     with open("final_backlog_data.json", "r", encoding="utf-8") as f:
         backlog_data = json.load(f)
     with open("all_region_trips.json", "r", encoding="utf-8") as f:
@@ -51,18 +50,15 @@ def load_data():
         total_trip_production = trip_productions.get(trip_hub_key, 0)
         total_backlog = 0
         original_hub_name = trip_hub_key.upper()
-        
         for backlog_hub, backlog_info in backlog_data.items():
             clean_backlog_hub = clean_and_normalize(backlog_hub)
             if clean_backlog_hub in trip_hub_key or trip_hub_key in clean_backlog_hub:
                 total_backlog = backlog_info.get("total_sum", 0) if isinstance(backlog_info, dict) else 0
                 original_hub_name = backlog_hub
                 break
-                
         avg_prod_per_trip = int(round(total_trip_production / total_trips, 0)) if total_trips > 0 else 0
         backlog_ratio = (total_backlog / total_trip_production) if total_trip_production > 0 else 0
         alert_status = "🚨 QUÁ TẢI" if backlog_ratio >= 0.50 else ("⚠️ ÁP LỰC" if backlog_ratio >= 0.30 else "✅ AN TOÀN")
-            
         summary.append({
             "Bưu cục": original_hub_name,
             "Tồn đọng (Kho)": total_backlog,
@@ -91,7 +87,8 @@ if df is not None:
         color = "#ef4444" if row["Trạng thái cảnh báo"] == "🚨 QUÁ TẢI" else ("#f59e0b" if row["Trạng thái cảnh báo"] == "⚠️ ÁP LỰC" else "#22c55e")
         return [f'background-color: rgba(255,255,255,0.05); color: {color}; font-weight: bold;'] * len(row)
         
-    st.dataframe(df.style.apply(style_row, axis=1), use_container_width=True)
+    # HIỂN THỊ BẢNG (KHÔNG CÓ THAM SỐ HEIGHT)
+    st.dataframe(df.style.apply(style_row, axis=1), use_container_width=True, hide_index=True)
     
     if st.button("🔄 Cập nhật/Làm mới dữ liệu tức thì"):
         st.rerun()
