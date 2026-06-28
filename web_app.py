@@ -4,17 +4,25 @@ import os
 import pandas as pd
 import re
 
-# Cấu hình trang - Phải đặt đầu tiên
+# 1. Cấu hình trang hiển thị rộng
 st.set_page_config(page_title="GHN Lastmile Analytics", page_icon="📊", layout="wide")
 
-# CSS - Chỉ dùng để tạo style, không can thiệp chiều cao bảng để tránh lỗi
+# 2. CSS Custom để xóa giới hạn container và làm đẹp UI
 st.markdown("""
     <style>
-    .kpi-card { background: #1e293b; color: #ffffff; padding: 20px; border-radius: 10px; text-align: center; }
-    .section-header { color: #f97316; font-size: 20px; font-weight: bold; margin-top: 20px; }
+    /* Làm bảng bung rộng tối đa */
+    .stDataFrame { width: 100% !important; }
+    
+    /* Làm đẹp các thẻ chỉ số */
+    [data-testid="stMetricValue"] { font-size: 24px; color: #f97316; }
+    [data-testid="stMetricLabel"] { color: #94a3b8; }
+    
+    /* Tạo khoảng cách và bo góc cho các block */
+    div.block-container { padding-top: 2rem; }
     </style>
 """, unsafe_allow_html=True)
 
+# Các hàm logic dữ liệu của bạn
 def clean_and_normalize(text):
     if not text: return ""
     return str(text).strip().lower().replace("(", "").replace(")", "").replace("-", "")
@@ -22,6 +30,7 @@ def clean_and_normalize(text):
 def load_data():
     if not os.path.exists("final_backlog_data.json") or not os.path.exists("all_region_trips.json"):
         return None
+    # ... (Giữ nguyên logic load_data của bạn) ...
     with open("final_backlog_data.json", "r", encoding="utf-8") as f:
         backlog_data = json.load(f)
     with open("all_region_trips.json", "r", encoding="utf-8") as f:
@@ -64,24 +73,26 @@ def load_data():
         })
     return pd.DataFrame(summary)
 
-# Main layout
-st.title("📊 HỆ THỐNG ĐIỀU PHỐI GHN")
+# 3. Giao diện người dùng cải tiến
+st.title("📊 GHN Lastmile Dashboard")
+
 df = load_data()
 
 if df is not None:
-    # KPI section
-    cols = st.columns(4)
-    cols[0].metric("Tổng Bưu Cục", len(df))
-    cols[1].metric("Tồn Đọng", f"{df['Tồn đọng (Kho)'].sum():,}")
-    cols[2].metric("Chuyến Xe", df['Số chuyến đi'].sum())
-    cols[3].metric("Tổng Sản Lượng", f"{df['Sản lượng (Xe)'].sum():,}")
+    # Sử dụng st.columns để hiển thị KPI gọn gàng
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Tổng Bưu Cục", len(df))
+    c2.metric("Tổng Tồn Đọng", f"{df['Tồn đọng (Kho)'].sum():,}")
+    c3.metric("Tổng Chuyến Xe", df['Số chuyến đi'].sum())
+    c4.metric("Tổng Sản Lượng", f"{df['Sản lượng (Xe)'].sum():,}")
 
-    st.markdown("<div class='section-header'>📋 CHI TIẾT ĐIỀU PHỐI BƯU CỤC</div>", unsafe_allow_html=True)
+    st.markdown("---")
+    st.subheader("📋 Chi tiết điều phối bưu cục")
     
-    # Bảng dữ liệu chuẩn (không truyền tham số height để tránh lỗi)
+    # Hiển thị bảng toàn màn hình bằng use_container_width
     st.dataframe(df, use_container_width=True, hide_index=True)
     
-    if st.button("🔄 Cập nhật dữ liệu"):
+    if st.button("🔄 Làm mới dữ liệu"):
         st.rerun()
 else:
-    st.error("❌ Dữ liệu không sẵn sàng!")
+    st.error("Không có dữ liệu để hiển thị.")
