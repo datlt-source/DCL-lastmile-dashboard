@@ -1,183 +1,183 @@
 {
     "(DTH) Cao Lãnh": {
-        "total_sum": 1943
+        "total_sum": 1748
     },
     "(DTH) An Bình": {
-        "total_sum": 1686
+        "total_sum": 1939
     },
     "(BTR) Mỏ Cày": {
-        "total_sum": 814
+        "total_sum": 790
     },
     "(TGI) Đạo Thạnh": {
-        "total_sum": 3277
+        "total_sum": 3163
     },
     "(TVI) Duyên Hải": {
-        "total_sum": 1284
+        "total_sum": 1209
     },
     "(DTH) Tràm Chim": {
-        "total_sum": 1216
+        "total_sum": 1128
     },
     "(DTH) Thanh Bình": {
-        "total_sum": 998
+        "total_sum": 1107
     },
     "(BTR) Giồng Trôm": {
-        "total_sum": 1021
+        "total_sum": 1059
     },
     "(TGI) Tân Phước 1": {
-        "total_sum": 575
+        "total_sum": 652
     },
     "(TGI) Đồng Sơn": {
-        "total_sum": 1351
+        "total_sum": 1562
     },
     "(VLO) Trà Ôn": {
-        "total_sum": 485
+        "total_sum": 618
     },
     "(VLO) Tân Quới": {
-        "total_sum": 660
+        "total_sum": 767
     },
     "(TVI) Cầu Kè": {
-        "total_sum": 713
+        "total_sum": 702
     },
     "(TGI) Hậu Mỹ": {
         "total_sum": 555
     },
     "(TGI) Mỹ Phong": {
-        "total_sum": 1449
+        "total_sum": 1365
     },
     "(TGI) Cái Bè": {
-        "total_sum": 855
-    },
-    "(DTH) Tân Hồng": {
-        "total_sum": 681
-    },
-    "(VLO) Tam Bình": {
-        "total_sum": 617
-    },
-    "(VLO) Cái Nhum": {
-        "total_sum": 660
-    },
-    "(VLO) Long Châu": {
-        "total_sum": 1218
-    },
-    "(TGI) Long Tiên": {
-        "total_sum": 811
-    },
-    "(VLO) Cái Vồn": {
-        "total_sum": 1000
-    },
-    "(TVI) Trà Cú": {
-        "total_sum": 971
-    },
-    "(TGI) Vĩnh Kim": {
-        "total_sum": 2131
-    },
-    "(TGI) Thanh Hòa": {
-        "total_sum": 1292
-    },
-    "(TVI) Tiểu Cần": {
-        "total_sum": 789
-    },
-    "(BTR) Thạnh Phú": {
-        "total_sum": 855
-    },
-    "(BTR) Bình Đại": {
-        "total_sum": 829
-    },
-    "(TVI) Trà Vinh": {
-        "total_sum": 2241
-    },
-    "(VLO) Phú Quới": {
-        "total_sum": 1137
-    },
-    "(TGI) Châu Thành": {
-        "total_sum": 1789
-    },
-    "(TGI) Thạnh Phú": {
-        "total_sum": 926
-    },
-    "(BTR) Tiên Thủy": {
-        "total_sum": 1111
-    },
-    "(DTH) Tân Nhuận Đông": {
-        "total_sum": 888
-    },
-    "(BTR) Ba Tri": {
-        "total_sum": 1368
-    },
-    "(BTR) An Hội": {
-        "total_sum": 1852
-    },
-    "(DTH) Mỹ Thọ": {
-        "total_sum": 321
-    },
-    "(BTR) Phú Túc": {
-        "total_sum": 3880
-    },
-    "(TGI) Long Thuận": {
         "total_sum": 969
     },
+    "(DTH) Tân Hồng": {
+        "total_sum": 665
+    },
+    "(VLO) Tam Bình": {
+        "total_sum": 665
+    },
+    "(VLO) Cái Nhum": {
+        "total_sum": 629
+    },
+    "(VLO) Long Châu": {
+        "total_sum": 1223
+    },
+    "(TGI) Long Tiên": {
+        "total_sum": 830
+    },
+    "(VLO) Cái Vồn": {
+        "total_sum": 993
+    },
+    "(TVI) Trà Cú": {
+        "total_sum": 998
+    },
+    "(TGI) Vĩnh Kim": {
+        "total_sum": 1695
+    },
+    "(TGI) Thanh Hòa": {
+        "total_sum": 1338
+    },
+    "(TVI) Tiểu Cần": {
+        "total_sum": 801
+    },
+    "(BTR) Thạnh Phú": {
+        "total_sum": 950
+    },
+    "(BTR) Bình Đại": {
+        "total_sum": 983
+    },
+    "(TVI) Trà Vinh": {
+        "total_sum": 2054
+    },
+    "(VLO) Phú Quới": {
+        "total_sum": 1253
+    },
+    "(TGI) Châu Thành": {
+        "total_sum": 1770
+    },
+    "(TGI) Thạnh Phú": {
+        "total_sum": 1108
+    },
+    "(BTR) Tiên Thủy": {
+        "total_sum": 1148
+    },
+    "(DTH) Tân Nhuận Đông": {
+        "total_sum": 976
+    },
+    "(BTR) Ba Tri": {
+        "total_sum": 1689
+    },
+    "(BTR) An Hội": {
+        "total_sum": 1716
+    },
+    "(DTH) Mỹ Thọ": {
+        "total_sum": 311
+    },
+    "(BTR) Phú Túc": {
+        "total_sum": 3640
+    },
+    "(TGI) Long Thuận": {
+        "total_sum": 878
+    },
     "(TGI) Chợ Gạo": {
-        "total_sum": 2260
+        "total_sum": 2386
     },
     "(BTR) Phước Mỹ Trung": {
         "total_sum": 825
     },
     "(DTH) Hòa Long": {
-        "total_sum": 966
+        "total_sum": 924
     },
     "(VLO) Phước Hậu": {
-        "total_sum": 1045
+        "total_sum": 1290
     },
     "(DTH) Tháp Mười": {
-        "total_sum": 1239
+        "total_sum": 1283
     },
     "(TVI) Cầu Ngang": {
-        "total_sum": 743
+        "total_sum": 867
     },
     "(TVI) Châu Thành": {
-        "total_sum": 772
+        "total_sum": 959
     },
     "(TVI) Càng Long": {
-        "total_sum": 969
+        "total_sum": 962
     },
     "(DTH) ĐL Tân Phú Trung": {
         "total_sum": 0
     },
     "(DTH) Lấp Vò": {
-        "total_sum": 400
+        "total_sum": 453
     },
     "(DTH) Mỹ An Hưng": {
-        "total_sum": 460
+        "total_sum": 402
     },
     "(DTH) ĐL Tân Khánh Trung": {
         "total_sum": 0
     },
     "(DTH) Ba Sao": {
-        "total_sum": 885
+        "total_sum": 723
     },
     "(TGI) Gia Thuận": {
-        "total_sum": 690
+        "total_sum": 867
     },
     "(BTR) Lộc Thuận": {
-        "total_sum": 431
+        "total_sum": 352
     },
     "(TGI) Mỹ Lợi": {
-        "total_sum": 587
+        "total_sum": 654
     },
     "(BTR) Hưng Khánh Trung": {
-        "total_sum": 392
+        "total_sum": 460
     },
     "(DTH) Lai Vung": {
-        "total_sum": 1088
+        "total_sum": 1071
     },
     "(BTR) Hương Mỹ": {
-        "total_sum": 562
+        "total_sum": 606
     },
     "(VLO) Trung Thành": {
-        "total_sum": 1596
+        "total_sum": 1588
     },
     "(DTH) Sa Đéc": {
-        "total_sum": 1038
+        "total_sum": 991
     },
     "(BTR) ĐL Nhuận Phú Tân": {
         "total_sum": 0
@@ -186,22 +186,22 @@
         "total_sum": 0
     },
     "(BTR) Sơn Đông": {
-        "total_sum": 1505
+        "total_sum": 1520
     },
     "(VLO) Long Hồ": {
-        "total_sum": 344
+        "total_sum": 373
     },
     "(BTR) Phú Phụng": {
-        "total_sum": 703
+        "total_sum": 882
     },
     "(DTH) ĐL Lấp Vò": {
         "total_sum": 0
     },
     "(DTH) Mỹ Hiệp": {
-        "total_sum": 511
+        "total_sum": 475
     },
     "(VLO) Vĩnh Xuân": {
-        "total_sum": 543
+        "total_sum": 516
     },
     "(TGI) Long Định": {
         "total_sum": 0
