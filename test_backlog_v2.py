@@ -1,18 +1,68 @@
+import os
 import time
 import json
 from playwright.sync_api import sync_playwright
+
+USER_DATA_DIR = os.getenv("GHN_PROFILE_DIR", "./bot_profile_backlog_test")
+GHN_BASE_URL = os.getenv("GHN_BASE_URL", "https://nhanh.ghn.vn")
+
+# Nếu bạn có web test riêng, export GHN_BASE_URL trước khi chạy.
+# Ví dụ: export GHN_BASE_URL=https://test.nhanh.ghn.vn
+
+def safe_int(value):
+    try:
+        return int(str(value).replace(',', '').strip())
+    except Exception:
+        return 0
+
 
 def calculate_totals(stats):
     total = 0
     target_labels = ["Giao", "Ưu tiên giao", "Trả"]
     for label, values in stats.items():
-        if any(target in label for target in target_labels):
+        if any(target.lower() in label.lower() for target in target_labels):
             for val in values:
-                try:
-                    total += int(val.replace(',', ''))
-                except ValueError:
-                    continue
+                total += safe_int(val)
     return total
+
+
+def extract_range_values(values):
+    nums = [safe_int(val) for val in values]
+    if len(nums) >= 4:
+        return nums[1], nums[2]
+    if len(nums) == 3:
+        return nums[0], nums[1]
+    if len(nums) == 2:
+        return nums[0], nums[1]
+    return 0, 0
+
+
+def extract_backlog_details(stats):
+    details = {
+        "Giao_120_192": 0,
+        "Giao_192_plus": 0,
+        "Uu_tien_giao_120_192": 0,
+        "Uu_tien_giao_192_plus": 0,
+        "Tra_120_192": 0,
+        "Tra_192_plus": 0,
+    }
+
+    for label, values in stats.items():
+        label_lower = label.lower()
+        if "ưu tiên giao" in label_lower or "uu tien" in label_lower:
+            r120, r192 = extract_range_values(values)
+            details["Uu_tien_giao_120_192"] = r120
+            details["Uu_tien_giao_192_plus"] = r192
+        elif "trả" in label_lower:
+            r120, r192 = extract_range_values(values)
+            details["Tra_120_192"] = r120
+            details["Tra_192_plus"] = r192
+        elif "giao" in label_lower:
+            r120, r192 = extract_range_values(values)
+            details["Giao_120_192"] = r120
+            details["Giao_192_plus"] = r192
+
+    return details
 
 def scrape_backlog_data(page, loc_code, loc_name):
     # 1. Xóa bưu cục cũ
@@ -54,13 +104,17 @@ def scrape_backlog_data(page, loc_code, loc_name):
         });
         return data;
     }""")
-    return calculate_totals(stats)
+    total = calculate_totals(stats)
+    details = extract_backlog_details(stats)
+    result = {"total_sum": total}
+    result.update(details)
+    return result
 
 def run_isolated_test():
     with sync_playwright() as p:
-        context = p.chromium.launch_persistent_context(user_data_dir="./bot_profile", headless=False, channel="chrome")
+        context = p.chromium.launch_persistent_context(user_data_dir=USER_DATA_DIR, headless=False, channel="chrome")
         page = context.pages[0]
-        page.goto("https://nhanh.ghn.vn/lastmile/report/backlog-lgt")
+        page.goto(f"{GHN_BASE_URL}/lastmile/report/backlog-lgt")
         
         print("🚀 Đã mở trình duyệt. Hãy đăng nhập và vào trang 'Tồn đọng'.")
         input("Nhấn Enter sau khi đã vào đúng trang để bắt đầu cào...")
@@ -73,9 +127,9 @@ def run_isolated_test():
             loc_name, loc_code = hub['locationName'], hub['locationCode']
             print(f"🔄 Đang cào: {loc_name} ({loc_code})")
             try:
-                total = scrape_backlog_data(page, loc_code, loc_name)
-                all_results[loc_name] = {"total_sum": total}
-                print(f"✅ Xong {loc_name}. Tổng: {total}")
+                result = scrape_backlog_data(page, loc_code, loc_name)
+                all_results[loc_name] = result
+                print(f"✅ Xong {loc_name}. Tổng: {result['total_sum']}")
             except Exception as e:
                 all_results[loc_name] = {"total_sum": 0}
                 print(f"⚠️ Lỗi {loc_name}: {e}")
